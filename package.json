@@ -25,6 +25,7 @@
     "@angular/ssr": "^18.1.0",
     "@ngrx/operators": "^18.0.1",
     "@ngrx/signals": "^18.0.0-beta.1",
+    "@syncfusion/ej2-angular-maps": "^26.1.41",
     "express": "^4.18.2",
     "ngx-csv-parser": "^2.0.0",
     "rxjs": "~7.8.0",
