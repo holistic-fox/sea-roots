@@ -1,26 +1,34 @@
-import { Component } from '@angular/core';
-import {Maps, MapsModule, MapsTooltip, NavigationLine} from "@syncfusion/ej2-angular-maps";
+import {Component, effect, input} from '@angular/core';
+import {LayerSettingsModel, Maps, MapsModule, MapsTooltip, NavigationLine} from "@syncfusion/ej2-angular-maps";
 import * as worldMap from "../../models/world-map.json";
+import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
+import {JsonPipe} from "@angular/common";
 
 Maps.Inject(MapsTooltip, NavigationLine);
 
 @Component({
   selector: 'marcura-global-map-display',
   standalone: true,
-  imports: [MapsModule],
+  imports: [MapsModule, JsonPipe],
   templateUrl: './global-map-display.component.html',
   styleUrl: './global-map-display.component.scss'
 })
-export class GlobalMapDisplayComponent {
+export class GlobalMapDisplayComponent{
 
-  layers = [{
+  navigationLine = input<NavigationLineSettingsModel[]>();
+
+  constructor() {
+    effect(() => {
+      this.layers = [{
+        shapeData: worldMap,
+        navigationLineSettings: this.navigationLine()
+      }]
+    });
+  }
+
+  layers: LayerSettingsModel[] = [{
     shapeData: worldMap,
-    navigationLineSettings: [{
-      visible: true,
-      latitude: [37.772, -122.214],
-      longitude: [-122.214, -122.214],
-      color: 'red',
-      width: 1
-    }]
+    navigationLineSettings: []
   }]
+
 }

@@ -4,4 +4,6 @@
   (selectRoute)="onRouteSelect($event)">
 </marcura-route-picker>
 
-<marcura-global-map-display></marcura-global-map-display>
+<marcura-global-map-display
+  [navigationLine]="store.navigationLine()"
+></marcura-global-map-display>

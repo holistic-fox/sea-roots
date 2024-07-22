@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {RoutePickerComponent} from "./components/route-picker/route-picker.component";
 import {GlobalMapDisplayComponent} from "./components/global-map-display/global-map-display.component";
 import {SeaRoutesStore} from "./state/sea-routes.store";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'marcura-global-map',
@@ -9,6 +10,7 @@ import {SeaRoutesStore} from "./state/sea-routes.store";
   imports: [
     RoutePickerComponent,
     GlobalMapDisplayComponent,
+    JsonPipe,
   ],
   providers: [SeaRoutesStore],
   templateUrl: './global-map.component.html',
@@ -18,7 +20,6 @@ export class GlobalMapComponent {
 
   readonly store = inject(SeaRoutesStore);
 
-  onRouteSelect = (event: number) => {
-    console.log('onRouteSelect', event)
-  }
+  onRouteSelect = (event: number) =>  this.store.setSelectedRouteId(event)
+
 }

@@ -26,8 +26,10 @@
     "@ngrx/operators": "^18.0.1",
     "@ngrx/signals": "^18.0.0-beta.1",
     "@syncfusion/ej2-angular-maps": "^26.1.41",
+    "@types/ramda": "^0.30.1",
     "express": "^4.18.2",
     "ngx-csv-parser": "^2.0.0",
+    "ramda": "^0.30.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
