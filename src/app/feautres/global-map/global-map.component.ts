@@ -7,7 +7,7 @@ import {GlobalMapDisplayComponent} from "./components/global-map-display/global-
   standalone: true,
   imports: [
     RoutePickerComponent,
-    GlobalMapDisplayComponent
+    GlobalMapDisplayComponent,
   ],
   templateUrl: './global-map.component.html',
   styleUrl: './global-map.component.scss'
