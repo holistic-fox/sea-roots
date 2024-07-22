@@ -2,7 +2,7 @@ import {Point} from "./point";
 
 export interface SeaRoute{
   id: number,
-  formPort: string,
+  fromPort: string,
   toPort: string,
   legDuration: number,
   points: Point[]

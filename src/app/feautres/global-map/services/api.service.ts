@@ -20,10 +20,10 @@ export class ApiService {
     map(this.parseSeaRoots)
   );
 
-  private parseSeaRoots = (response: any[][]) => response.map(([route_id, formPort, toPort, legDuration, points]) => {
+  private parseSeaRoots = (response: any[][]) => response.map(([route_id, fromPort, toPort, legDuration, points]) => {
     const seaRoute: SeaRoute = {
       id: Number(route_id),
-      formPort,
+      fromPort,
       toPort,
       legDuration: Number(legDuration),
       points: JSON.parse(points).map((point: [number, number, number, number]) => {

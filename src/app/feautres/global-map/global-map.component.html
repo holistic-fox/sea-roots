@@ -1,5 +1,9 @@
 <p>global-map works!</p>
 
-<marcura-route-picker></marcura-route-picker>
+<marcura-route-picker
+  [isLoading]="store.isLoading()"
+  [routes]="store.routesSelectOptions()"
+  (selectRoute)="onRouteSelect($event)">
+</marcura-route-picker>
 
 <marcura-global-map-display></marcura-global-map-display>

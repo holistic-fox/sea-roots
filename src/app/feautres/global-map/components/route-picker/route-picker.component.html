@@ -1,1 +1,16 @@
-<p>route-picker works!</p>
+@if(isLoading()){
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+} @else {
+  <div>
+    <form>
+      <mat-form-field appearance="outline" [style]="{'width': '100%'}">
+        <mat-label>Select Sea Route</mat-label>
+        <mat-select (selectionChange)="onChange($event)">
+          @for (option of routes(); track option.id) {
+            <mat-option [value]="option.id">from: {{ option.from }} to: {{option.to}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+}
