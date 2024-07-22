@@ -6,50 +6,94 @@ import {SeaRoute} from "../models/sea-route";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {tapResponse} from '@ngrx/operators';
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
+import {MarkerSettingsModel} from "@syncfusion/ej2-angular-maps";
 
 type SeaRootsStore = {
   isLoading: boolean,
-  selectedRouteId: number | undefined,
+  selectedRoute: SeaRoute | undefined,
   routes: SeaRoute[],
   error: Error | undefined,
 }
 
 const initialState: SeaRootsStore = {
   isLoading: false,
-  selectedRouteId: undefined,
+  selectedRoute: undefined,
   routes: [],
   error: undefined
 }
 
 export const SeaRoutesStore = signalStore(
   withState(initialState),
-  withComputed(({routes, selectedRouteId}) => ({
+  withComputed(({routes, selectedRoute}) => ({
     routesSelectOptions: computed(() => routes().map(route => (
       {id: route.id, from: route.fromPort, to: route.toPort}
     ))),
     navigationLine: computed(() => {
-      const route = routes().find(route => route.id === selectedRouteId())
-      if (!route) return [];
+      if (!selectedRoute()) return [];
 
       const navigationLineSettings: NavigationLineSettingsModel[] = [];
-      route.points.forEach((point, index) => {
-        if(index + 1 < route.points.length){
+      selectedRoute()!.points.forEach((point, index) => {
+        if (index + 1 < selectedRoute()!.points.length) {
           navigationLineSettings.push({
-            latitude: [point.latitude, route.points[index + 1].latitude],
-            longitude: [point.longitude, route.points[index + 1].longitude],
+            latitude: [point.latitude, selectedRoute()!.points[index + 1].latitude],
+            longitude: [point.longitude, selectedRoute()!.points[index + 1].longitude],
             visible: true,
             color: 'red',
             width: 2
           });
         }
-      })
-
+      });
       return navigationLineSettings;
+    }),
+    markers: computed(() => {
+      if (!selectedRoute()) return [];
+
+      const dataSource =  [
+        {
+          latitude: selectedRoute()!.points[0].latitude,
+          longitude: selectedRoute()!.points[0].longitude,
+          name: selectedRoute()!.fromPort
+        },
+        {
+          latitude: selectedRoute()!.points[selectedRoute()!.points.length -1].latitude,
+          longitude: selectedRoute()!.points[selectedRoute()!.points.length -1].longitude,
+          name: selectedRoute()!.toPort
+        },
+      ]
+
+      const markerSettings: MarkerSettingsModel[] = [{
+        visible: true,
+        shape: 'Circle',
+        fill: 'red',
+        width: 10,
+        height: 10,
+        animationDuration: 0,
+        dataSource,
+      }, {
+        visible: true,
+        dataSource: [dataSource[0]],
+        offset: {
+          x: 0,
+          y: -15,
+        },
+        template: '<div>'+ dataSource[0].name +'</div>',
+      },
+        {
+          visible: true,
+          dataSource: [dataSource[1]],
+          offset: {
+            x: 0,
+            y: -15,
+          },
+          template: '<div>'+ dataSource[1].name +'</div>',
+        }];
+
+      return markerSettings;
     })
   })),
   withMethods((store, api = inject(ApiService)) => ({
     setSelectedRouteId(id: number) {
-      patchState(store, {selectedRouteId: id})
+      patchState(store, {selectedRoute: store.routes().find(route => route.id === id)})
     },
     loadSeaRoots: rxMethod<void>(
       pipe(
