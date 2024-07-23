@@ -7,6 +7,7 @@ import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {tapResponse} from '@ngrx/operators';
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
 import {getColor, getMarkers} from "../utilities/global-map.utilities";
+import {ChartData} from "../models/chart-data";
 
 type SeaRootsStore = {
   isLoading: boolean,
@@ -65,6 +66,13 @@ export const SeaRoutesStore = signalStore(
       ]
 
       return getMarkers(dataSource);
+    }),
+    chartData: computed(() => {
+      if (!selectedRoute()) return [];
+      return selectedRoute()!.points.map<ChartData>(({speed, timestamp}) => ({
+        speed,
+        timestamp
+      }))
     })
   })),
   withMethods((store, api = inject(ApiService)) => ({
