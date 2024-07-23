@@ -1,4 +1,4 @@
-import {patchState, signalStore, withState, withHooks, withMethods, withComputed} from '@ngrx/signals';
+import {patchState, signalStore, withComputed, withHooks, withMethods, withState} from '@ngrx/signals';
 import {pipe, switchMap, tap} from "rxjs";
 import {computed, inject} from "@angular/core";
 import {ApiService} from "../services/api.service";
@@ -6,8 +6,7 @@ import {SeaRoute} from "../models/sea-route";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {tapResponse} from '@ngrx/operators';
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
-import {Colors} from "../models/colors";
-import {getMarkers} from "../utilities/global-map.utilities";
+import {getColor, getMarkers} from "../utilities/global-map.utilities";
 
 type SeaRootsStore = {
   isLoading: boolean,
@@ -33,14 +32,14 @@ export const SeaRoutesStore = signalStore(
       if (!selectedRoute()) return [];
 
       const navigationLineSettings: NavigationLineSettingsModel[] = [];
-      selectedRoute()!.points.forEach((point, index) => {
-        if (index + 1 < selectedRoute()!.points.length) {
+      selectedRoute()!.points.forEach((point, i) => {
+        if (i + 1 < selectedRoute()!.points.length) {
           navigationLineSettings.push({
-            latitude: [point.latitude, selectedRoute()!.points[index + 1].latitude],
-            longitude: [point.longitude, selectedRoute()!.points[index + 1].longitude],
+            latitude: [point.latitude, selectedRoute()!.points[i + 1].latitude],
+            longitude: [point.longitude, selectedRoute()!.points[i + 1].longitude],
             visible: true,
-            color: Colors.black,
-            width: 2
+            color: getColor(point.speed),
+            width: 3
           });
         }
       });

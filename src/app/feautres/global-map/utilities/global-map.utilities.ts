@@ -6,8 +6,8 @@ export const getMarkers = (dataSource: DataSource[]): MarkerSettingsModel[] => [
   visible: true,
   shape: 'Balloon',
   fill: Colors.black,
-  width: 20,
-  height: 20,
+  width: 40,
+  height: 40,
   animationDuration: 0,
   dataSource,
 }, ...dataSource.map(item => ({
@@ -15,9 +15,16 @@ export const getMarkers = (dataSource: DataSource[]): MarkerSettingsModel[] => [
   dataSource: [item],
   offset: {
     x: 0,
-    y: -30,
+    y: -50,
   },
   template: getMarkerTemplate(item.name),
 }))]
 
 export const getMarkerTemplate = (name: string): string => `<div>${name}</div>`;
+
+export const getColor = (speed: number): Colors => {
+  if (speed === 0) return Colors.black;
+  if (speed < 5) return Colors.red;
+  if (speed < 10) return Colors.yellow;
+  return Colors.green;
+}
