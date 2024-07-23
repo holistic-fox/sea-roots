@@ -42,6 +42,6 @@ export class RoutePickerComponent {
 
   onRouteChange = (event: MatSelectChange) => this.selectRoute.emit(event.value);
   onSortByChange = (event: MatRadioChange) => this.selectSortBy.emit(event.value)
-  onSortOrderChange = (event: MatRadioChange) => this.selectSortBy.emit(event.value)
+  onSortOrderChange = (event: MatRadioChange) => this.selectSortOrder.emit(event.value)
 
 }

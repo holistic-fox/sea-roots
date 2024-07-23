@@ -31,10 +31,16 @@ const initialState: SeaRootsStore = {
 
 export const SeaRoutesStore = signalStore(
   withState(initialState),
-  withComputed(({routes, selectedRoute}) => ({
-    routesSelectOptions: computed(() => routes().map(route => (
-      {id: route.id, from: route.fromPort, to: route.toPort}
-    ))),
+  withComputed(({routes, selectedRoute, sortBy, sortOrder}) => ({
+    routesSelectOptions: computed(() => routes()
+      .map(route => (
+        {id: route.id, from: route.fromPort, to: route.toPort}
+      )).sort((a, b) => {
+        if (sortBy() === SortBy.id) return sortOrder() === SortOrder.asc ? a.id - b.id : b.id - a.id;
+        if (sortBy() === SortBy.from) return sortOrder() === SortOrder.asc ? a.from.localeCompare(b.from) : b.from.localeCompare(a.from);
+        if (sortBy() === SortBy.to) return sortOrder() === SortOrder.asc ? a.to.localeCompare(b.to) : b.to.localeCompare(a.to);
+        return a.id - b.id;
+      })),
     sortBySelectOptions: computed(() => Object.values(SortBy)),
     sortOrderSelectOptions: computed(() => Object.values(SortOrder)),
     navigationLine: computed(() => {
@@ -88,10 +94,10 @@ export const SeaRoutesStore = signalStore(
     setSelectedRouteId(id: number) {
       patchState(store, {selectedRoute: store.routes().find(route => route.id === id)})
     },
-    setSortBy(sortBy: SortBy){
+    setSortBy(sortBy: SortBy) {
       patchState(store, {sortBy})
     },
-    setSortOrder(sortOrder: SortOrder){
+    setSortOrder(sortOrder: SortOrder) {
       patchState(store, {sortOrder})
     },
     loadSeaRoots: rxMethod<void>(
