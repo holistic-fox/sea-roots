@@ -1,16 +1,39 @@
-@if(isLoading()){
+@if (isLoading()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-divider></mat-divider>
 } @else {
-  <div>
-    <form>
-      <mat-form-field appearance="outline" [style]="{'width': '100%'}">
-        <mat-label>Select Sea Route</mat-label>
-        <mat-select (selectionChange)="onChange($event)">
-          @for (option of routes(); track option.id) {
-            <mat-option [value]="option.id">from: {{ option.from }} to: {{option.to}}</mat-option>
+  <mat-toolbar>
+    <div class="sort-container">
+      <div>
+        <label id="sort-by" class="sort-container--label">sort by:</label>
+        <mat-radio-group [value]="sortBy()" (change)="onSortByChange($event)" aria-label="sort by"
+                         aria-labelledby="sort-by">
+          @for (option of sortByOptions(); track option) {
+            <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
           }
-        </mat-select>
-      </mat-form-field>
-    </form>
+        </mat-radio-group>
+      </div>
+
+      <div>
+        <label id="sort-order" class="sort-container--label">sort order:</label>
+        <mat-radio-group [value]="sortOrder()" (change)="onSortOrderChange($event)" aria-label="sort order"
+                         aria-labelledby="sort-order">
+          @for (option of sortOrderOptions(); track option) {
+            <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <div>
+    <mat-form-field appearance="outline" [style]="{'width': '100%'}">
+      <mat-label>Sea Route</mat-label>
+      <mat-select [placeholder]="'Select Sea Route'" (selectionChange)="onRouteChange($event)">
+        @for (option of routes(); track option.id) {
+          <mat-option [value]="option.id">[{{ option.id }}] from: {{ option.from }} to: {{ option.to }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </div>
 }

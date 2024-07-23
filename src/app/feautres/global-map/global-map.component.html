@@ -3,7 +3,13 @@
     <marcura-route-picker
       [isLoading]="store.isLoading()"
       [routes]="store.routesSelectOptions()"
-      (selectRoute)="onRouteSelect($event)">
+      [sortBy]="store.sortBy()"
+      [sortOrder]="store.sortOrder()"
+      [sortByOptions]="store.sortBySelectOptions()"
+      [sortOrderOptions]="store.sortOrderSelectOptions()"
+      (selectRoute)="store.setSelectedRouteId($event)"
+      (selectSortBy)="store.setSortBy($event)"
+      (selectSortOrder)="store.setSortOrder($event)">
     </marcura-route-picker>
   </div>
   <div class="container--item container--item__map">

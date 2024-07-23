@@ -21,7 +21,4 @@ import {SpeedChartComponent} from "./components/speed-chart/speed-chart.componen
 export class GlobalMapComponent {
 
   readonly store = inject(SeaRoutesStore);
-
-  onRouteSelect = (event: number) =>  this.store.setSelectedRouteId(event)
-
 }

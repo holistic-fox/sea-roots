@@ -8,11 +8,15 @@ import {tapResponse} from '@ngrx/operators';
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
 import {getColor, getMarkers} from "../utilities/global-map.utilities";
 import {ChartData} from "../models/chart-data";
+import {SortOrder} from "../models/sort-order";
+import {SortBy} from "../models/sort-by";
 
 type SeaRootsStore = {
   isLoading: boolean,
   selectedRoute: SeaRoute | undefined,
   routes: SeaRoute[],
+  sortBy: SortBy
+  sortOrder: SortOrder,
   error: Error | undefined,
 }
 
@@ -20,6 +24,8 @@ const initialState: SeaRootsStore = {
   isLoading: false,
   selectedRoute: undefined,
   routes: [],
+  sortBy: SortBy.id,
+  sortOrder: SortOrder.asc,
   error: undefined
 }
 
@@ -29,6 +35,8 @@ export const SeaRoutesStore = signalStore(
     routesSelectOptions: computed(() => routes().map(route => (
       {id: route.id, from: route.fromPort, to: route.toPort}
     ))),
+    sortBySelectOptions: computed(() => Object.values(SortBy)),
+    sortOrderSelectOptions: computed(() => Object.values(SortOrder)),
     navigationLine: computed(() => {
       if (!selectedRoute()) return [];
 
@@ -79,6 +87,12 @@ export const SeaRoutesStore = signalStore(
   withMethods((store, api = inject(ApiService)) => ({
     setSelectedRouteId(id: number) {
       patchState(store, {selectedRoute: store.routes().find(route => route.id === id)})
+    },
+    setSortBy(sortBy: SortBy){
+      patchState(store, {sortBy})
+    },
+    setSortOrder(sortOrder: SortOrder){
+      patchState(store, {sortOrder})
     },
     loadSeaRoots: rxMethod<void>(
       pipe(
