@@ -3,6 +3,7 @@ import {RoutePickerComponent} from "./components/route-picker/route-picker.compo
 import {GlobalMapDisplayComponent} from "./components/global-map-display/global-map-display.component";
 import {SeaRoutesStore} from "./state/sea-routes.store";
 import {JsonPipe} from "@angular/common";
+import {SpeedChartComponent} from "./components/speed-chart/speed-chart.component";
 
 @Component({
   selector: 'marcura-global-map',
@@ -11,6 +12,7 @@ import {JsonPipe} from "@angular/common";
     RoutePickerComponent,
     GlobalMapDisplayComponent,
     JsonPipe,
+    SpeedChartComponent,
   ],
   providers: [SeaRoutesStore],
   templateUrl: './global-map.component.html',
