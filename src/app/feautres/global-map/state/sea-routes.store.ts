@@ -69,9 +69,10 @@ export const SeaRoutesStore = signalStore(
     }),
     chartData: computed(() => {
       if (!selectedRoute()) return [];
+      const startPoint = selectedRoute()!.points.at(0);
       return selectedRoute()!.points.map<ChartData>(({speed, timestamp}) => ({
         speed,
-        timestamp
+        duration: (timestamp - startPoint!.timestamp) / (60 * 60 * 1000)
       }))
     })
   })),

@@ -17,7 +17,7 @@ export class SpeedChartComponent {
   title = 'Speed chart';
 
   primaryXAxis: AxisModel = {
-    title: 'Time in minutes',
+    title: 'Travel time in hours',
   }
 
   primaryYAxis: AxisModel = {

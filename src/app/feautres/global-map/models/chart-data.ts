@@ -1,4 +1,4 @@
 export interface ChartData {
-  timestamp: number,
+  duration: number,
   speed: number
 };
