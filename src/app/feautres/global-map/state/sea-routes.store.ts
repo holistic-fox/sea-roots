@@ -6,8 +6,8 @@ import {SeaRoute} from "../models/sea-route";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {tapResponse} from '@ngrx/operators';
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
-import {MarkerSettingsModel} from "@syncfusion/ej2-angular-maps";
 import {Colors} from "../models/colors";
+import {getMarkers} from "../utilities/global-map.utilities";
 
 type SeaRootsStore = {
   isLoading: boolean,
@@ -49,47 +49,23 @@ export const SeaRoutesStore = signalStore(
     markers: computed(() => {
       if (!selectedRoute()) return [];
 
-      const dataSource =  [
+      const startPoint = selectedRoute()!.points.at(0);
+      const endPoint = selectedRoute()!.points.at(-1);
+
+      const dataSource = [
         {
-          latitude: selectedRoute()!.points[0].latitude,
-          longitude: selectedRoute()!.points[0].longitude,
+          latitude: startPoint!.latitude,
+          longitude: startPoint!.longitude,
           name: selectedRoute()!.fromPort
         },
         {
-          latitude: selectedRoute()!.points[selectedRoute()!.points.length -1].latitude,
-          longitude: selectedRoute()!.points[selectedRoute()!.points.length -1].longitude,
+          latitude: endPoint!.latitude,
+          longitude: endPoint!.longitude,
           name: selectedRoute()!.toPort
         },
       ]
 
-      const markerSettings: MarkerSettingsModel[] = [{
-        visible: true,
-        shape: 'Balloon',
-        fill: Colors.black,
-        width: 20,
-        height: 20,
-        animationDuration: 0,
-        dataSource,
-      }, {
-        visible: true,
-        dataSource: [dataSource[0]],
-        offset: {
-          x: 0,
-          y: -30,
-        },
-        template: '<div>'+ dataSource[0].name +'</div>',
-      },
-        {
-          visible: true,
-          dataSource: [dataSource[1]],
-          offset: {
-            x: 0,
-            y: -30,
-          },
-          template: '<div>'+ dataSource[1].name +'</div>',
-        }];
-
-      return markerSettings;
+      return getMarkers(dataSource);
     })
   })),
   withMethods((store, api = inject(ApiService)) => ({
