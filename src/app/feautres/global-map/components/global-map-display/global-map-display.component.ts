@@ -6,7 +6,7 @@ import {
   MapsTooltip,
   Marker, MarkerSettingsModel,
   NavigationLine,
-  Zoom
+  Zoom, ZoomSettingsModel
 } from "@syncfusion/ej2-angular-maps";
 import * as worldMap from "../../models/world-map.json";
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
@@ -21,10 +21,10 @@ Maps.Inject(MapsTooltip, NavigationLine, Zoom, Marker);
   templateUrl: './global-map-display.component.html',
   styleUrl: './global-map-display.component.scss'
 })
-export class GlobalMapDisplayComponent{
+export class GlobalMapDisplayComponent {
 
   navigationLine = input<NavigationLineSettingsModel[]>();
-  markers=input<MarkerSettingsModel[]>()
+  markers = input<MarkerSettingsModel[]>()
 
   constructor() {
     effect(() => {
@@ -36,9 +36,15 @@ export class GlobalMapDisplayComponent{
     });
   }
 
-  zoomSettings: object = {
+  zoomSettings: ZoomSettingsModel = {
     enable: true,
-    toolbars: ['ZoomIn', 'ZoomOut', 'Reset']
+    maxZoom: 100,
+    minZoom: 1,
+    toolbarSettings: {
+      buttonSettings: {
+        toolbarItems: ['ZoomIn', 'ZoomOut', 'Reset']
+      }
+    },
   };
 
   layers: LayerSettingsModel[] = [{

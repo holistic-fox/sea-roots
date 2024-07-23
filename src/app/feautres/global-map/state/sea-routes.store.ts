@@ -7,6 +7,7 @@ import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {tapResponse} from '@ngrx/operators';
 import {NavigationLineSettingsModel} from "@syncfusion/ej2-maps/src/maps/model/base-model";
 import {MarkerSettingsModel} from "@syncfusion/ej2-angular-maps";
+import {Colors} from "../models/colors";
 
 type SeaRootsStore = {
   isLoading: boolean,
@@ -38,7 +39,7 @@ export const SeaRoutesStore = signalStore(
             latitude: [point.latitude, selectedRoute()!.points[index + 1].latitude],
             longitude: [point.longitude, selectedRoute()!.points[index + 1].longitude],
             visible: true,
-            color: 'red',
+            color: Colors.black,
             width: 2
           });
         }
@@ -63,10 +64,10 @@ export const SeaRoutesStore = signalStore(
 
       const markerSettings: MarkerSettingsModel[] = [{
         visible: true,
-        shape: 'Circle',
-        fill: 'red',
-        width: 10,
-        height: 10,
+        shape: 'Balloon',
+        fill: Colors.black,
+        width: 20,
+        height: 20,
         animationDuration: 0,
         dataSource,
       }, {
@@ -74,7 +75,7 @@ export const SeaRoutesStore = signalStore(
         dataSource: [dataSource[0]],
         offset: {
           x: 0,
-          y: -15,
+          y: -30,
         },
         template: '<div>'+ dataSource[0].name +'</div>',
       },
@@ -83,7 +84,7 @@ export const SeaRoutesStore = signalStore(
           dataSource: [dataSource[1]],
           offset: {
             x: 0,
-            y: -15,
+            y: -30,
           },
           template: '<div>'+ dataSource[1].name +'</div>',
         }];
