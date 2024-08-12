@@ -11,7 +11,7 @@ import {SortBy} from "../../models/sort-by";
 import {SortOrder} from "../../models/sort-order";
 
 @Component({
-  selector: 'marcura-route-picker',
+  selector: 'sea-roots-route-picker',
   standalone: true,
   imports: [
     JsonPipe,

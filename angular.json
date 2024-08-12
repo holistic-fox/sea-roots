@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "marcura-test": {
+    "sea-roots": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,12 +12,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "marcura",
+      "prefix": "sea-roots",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/marcura-test",
+            "outputPath": "dist/sea-roots",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "marcura-test:build:production"
+              "buildTarget": "sea-roots:build:production"
             },
             "development": {
-              "buildTarget": "marcura-test:build:development"
+              "buildTarget": "sea-roots:build:development"
             }
           },
           "defaultConfiguration": "development"

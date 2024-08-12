@@ -6,7 +6,7 @@ import {JsonPipe} from "@angular/common";
 import {SpeedChartComponent} from "./components/speed-chart/speed-chart.component";
 
 @Component({
-  selector: 'marcura-global-map',
+  selector: 'sea-roots-global-map',
   standalone: true,
   imports: [
     RoutePickerComponent,

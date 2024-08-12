@@ -3,7 +3,7 @@ import {AxisModel, ChartModule, LineSeriesService} from "@syncfusion/ej2-angular
 import {ChartData} from "../../models/chart-data";
 
 @Component({
-  selector: 'marcura-speed-chart',
+  selector: 'sea-roots-speed-chart',
   standalone: true,
   imports: [ChartModule],
   providers: [LineSeriesService],

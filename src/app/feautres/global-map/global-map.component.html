@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container--item">
-    <marcura-route-picker
+    <sea-roots-route-picker
       [isLoading]="store.isLoading()"
       [routes]="store.routesSelectOptions()"
       [sortBy]="store.sortBy()"
@@ -10,7 +10,7 @@
       (selectRoute)="store.setSelectedRouteId($event)"
       (selectSortBy)="store.setSortBy($event)"
       (selectSortOrder)="store.setSortOrder($event)">
-    </marcura-route-picker>
+    </sea-roots-route-picker>
   </div>
   <div class="container--item container--item__map">
     <marcura-global-map-display
@@ -19,6 +19,6 @@
     ></marcura-global-map-display>
   </div>
   <div class="container--item">
-    <marcura-speed-chart [chartData]="store.chartData()"></marcura-speed-chart>
+    <sea-roots-speed-chart [chartData]="store.chartData()"></sea-roots-speed-chart>
   </div>
 </div>

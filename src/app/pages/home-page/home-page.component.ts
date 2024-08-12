@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {GlobalMapComponent} from "../../feautres/global-map/global-map.component";
 
 @Component({
-  selector: 'marcura-home-page',
+  selector: 'sea-roots-home-page',
   standalone: true,
   imports: [
     GlobalMapComponent
